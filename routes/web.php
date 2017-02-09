@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/products/all', 'TrackingController@getProducts');
+Route::post('/products/new', 'TrackingController@addProduct');
+Route::get('/products/{id}/', 'TrackingController@findProduct');
+Route::get('/categories/all', 'TrackingController@getCategories');
+Route::post('/categories/new', 'TrackingController@addCategory');
+
