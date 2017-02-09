@@ -2,13 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class TrackingController extends Controller
 {
+    /**
+     * fetches all the products
+     *
+     * @return Illuminate\Http\Response
+     */
     public function getProducts()
     {
+    	$products = Product::all();
 
+    	if ($products) {
+    		return response()->json([$products, 200]);
+    	}
+
+    	return response()->json(['Products data not found', 404]);
     }
 
     /**
@@ -28,10 +40,10 @@ class TrackingController extends Controller
     	]);
 
     	if ($product) {
-    		return response()->json([$product, 200]);
+    		return response()->json([$product, 201]);
     	}
 
-    	return response()->json(['Error', 200]);
+    	return response()->json(['Not created', 200]);
     }
 
     public function findProduct()
