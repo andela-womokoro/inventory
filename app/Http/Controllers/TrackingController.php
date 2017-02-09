@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 
 class TrackingController extends Controller
@@ -65,13 +66,35 @@ class TrackingController extends Controller
     	return response()->json(['Product not found', 404]);
     }
 
+    /**
+     * fetch all products caategories
+     *
+     * @return Illuminate\Http\Response
+     */
     public function getCategories()
     {
+    	$categories = ProductCategory::all();
 
+    	if ($categories) {
+    		return response()->json([$categories, 200]);
+    	}
+
+    	return response()->json(['Categories data not found', 404]);
     }
 
-    public function addCategory()
+    /**
+     * create a new product category
+     */
+    public function addCategory(Request $request)
     {
+    	$category = ProductCategory::create([
+			'name' => $request->description,
+		]);
 
+		if ($category) {
+			return response()->json([$category, 200]);
+		}
+
+		return response()->json(['Not created', 200]);
     }
 }
