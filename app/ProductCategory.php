@@ -20,7 +20,7 @@ class ProductCategory extends Model
      */
     protected $fillable = ['description'];
 
-    public function user()
+    public function product()
     {
         return $this->hasMany('App\Product');
     }
