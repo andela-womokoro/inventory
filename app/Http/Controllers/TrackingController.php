@@ -25,6 +25,7 @@ class TrackingController extends Controller
 
     /**
      * add a new product to the database
+     *
      * @param Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\Response
@@ -46,9 +47,22 @@ class TrackingController extends Controller
     	return response()->json(['Not created', 200]);
     }
 
-    public function findProduct()
+    /**
+     * find a particular product and return it
+     *
+     * @param  string $productId
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function findProduct($productId)
     {
+    	$product = Product::whereId($productId)->first();
 
+    	if ($product) {
+    		return response()->json([$product, 200]);
+    	}
+
+    	return response()->json(['Product not found', 404]);
     }
 
     public function getCategories()
